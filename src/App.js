@@ -6,6 +6,7 @@ import TodoEditor from "./components/TodoEditor";
 import initialTodos from "./todos.json";
 import IconButton from "./components/IconButton";
 import Modal from "./components/Modal";
+import Clock from "./components/Clock";
 // import "";
 // import { format } from "date-fns";
 
@@ -16,6 +17,7 @@ class App extends Component {
 		todos: initialTodos,
 		filter: "",
 		showModal: false,
+		showClock: false,
 	};
 
 	componentDidMount() {
@@ -72,13 +74,22 @@ class App extends Component {
 		this.setState(({ showModal }) => ({ showModal: !showModal }));
 	};
 
+	toggleClock = () => {
+		this.setState(({ showClock }) => ({ showClock: !showClock }));
+	};
+
 	render() {
-		const { todos, filter, showModal } = this.state;
+		const { todos, filter, showModal, showClock } = this.state;
 		// const date = format(new Date(), "dd.MM.yyyy");
 		const totalTodoCount = todos.length;
 		const completedTodoCount = this.calculateCompletedTodos();
 		return (
 			<Container>
+				<button type="button" onClick={this.toggleClock}>
+					Годинник
+				</button>
+				{showClock && <Clock />}
+
 				<button type="button" onClick={this.toggleModal}>
 					Відкрити модалку
 				</button>
